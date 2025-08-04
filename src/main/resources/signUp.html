@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style/signUp.css">
+</head>
+<body>
+
+<div class="auth-container">
+    <h1 class="auth-title">CREATE ACCOUNT</h1>
+    <form id="signupForm">
+        <div class="form-group">
+            <input type="text" id="fullname" class="form-input" placeholder="Enter your full name" required>
+            <label for="fullname" class="form-label">Full Name</label>
+        </div>
+        <div class="form-group">
+            <input type="text" id="email" class="form-input" placeholder="Enter your email" required>
+            <label for="email" class="form-label">Email Address</label>
+        </div>
+        <div class="form-group">
+            <input type="password" id="password" class="form-input" placeholder="Create a password" required>
+            <label for="password" class="form-label">Password</label>
+            <div class="password-strength" id="passwordStrength">
+                <div class="password-strength-bar"></div>
+            </div>
+        </div>
+        <button type="submit" class="auth-button">
+            <span class="loading-spinner" id="loadingSpinner" style="display: none;"></span>
+            <span id="buttonText">Create Account</span>
+        </button>
+    </form>
+    <p class="auth-switch-link">
+        Already have an account? <a href="signIn.html">Sign In</a>
+    </p>
+</div>
+
+<!-- jQuery CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="js/signUp.js"></script>
+</body>
+</html>

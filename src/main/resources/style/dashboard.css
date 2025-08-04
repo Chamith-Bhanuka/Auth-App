@@ -1,0 +1,300 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.dashboard-container {
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.role-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.role-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+}
+
+.role-card:hover::before {
+    transform: translateX(100%);
+}
+
+.role-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.role-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.role-description {
+    font-size: 1rem;
+    opacity: 0.8;
+    line-height: 1.6;
+    transition: all 0.3s ease;
+}
+
+/* Admin Card - Glowing Effect */
+.admin-card {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.3));
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.admin-card.active {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(37, 99, 235, 0.5));
+    border-color: #3b82f6;
+    box-shadow:
+            0 0 30px rgba(59, 130, 246, 0.5),
+            0 0 60px rgba(59, 130, 246, 0.3),
+            0 0 90px rgba(59, 130, 246, 0.1);
+    transform: translateY(-10px) scale(1.05);
+}
+
+.admin-card .role-icon {
+    color: #60a5fa;
+}
+
+.admin-card.active .role-icon {
+    color: #3b82f6;
+    text-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+    animation: adminPulse 2s ease-in-out infinite;
+}
+
+.admin-card .role-title {
+    color: #e5e7eb;
+}
+
+.admin-card.active .role-title {
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+.admin-card .role-description {
+    color: #d1d5db;
+}
+
+.admin-card.active .role-description {
+    color: #f3f4f6;
+}
+
+/* User Card - Blue Glow Effect (Same as Admin) */
+.user-card {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.3));
+    border-color: rgba(34, 197, 94, 0.3);
+}
+
+.user-card.active {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.4), rgba(22, 163, 74, 0.5));
+    border-color: #22c55e;
+    box-shadow:
+            0 0 30px rgba(34, 197, 94, 0.5),
+            0 0 60px rgba(34, 197, 94, 0.3),
+            0 0 90px rgba(34, 197, 94, 0.1);
+    transform: translateY(-10px) scale(1.05);
+}
+
+.user-card .role-icon {
+    color: #34d399;
+}
+
+.user-card.active .role-icon {
+    color: #22c55e;
+    animation: userFade 2s ease-in-out infinite;
+}
+
+.user-card .role-title {
+    color: #e5e7eb;
+}
+
+.user-card.active .role-title {
+    color: #d1d5db;
+}
+
+.user-card .role-description {
+    color: #d1d5db;
+}
+
+.user-card.active .role-description {
+    color: #9ca3af;
+}
+
+/* Animations */
+@keyframes adminPulse {
+    0%, 100% {
+        transform: scale(1);
+        text-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+    }
+    50% {
+        transform: scale(1.1);
+        text-shadow: 0 0 30px rgba(59, 130, 246, 1);
+    }
+}
+
+@keyframes userPulse {
+    0%, 100% {
+        transform: scale(1);
+        text-shadow: 0 0 20px rgba(34, 197, 94, 0.8);
+    }
+    50% {
+        transform: scale(1.1);
+        text-shadow: 0 0 30px rgba(34, 197, 94, 1);
+    }
+}
+
+@keyframes userFade {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Status Badge */
+.status-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.active .status-badge {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.admin-card .status-badge {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
+.user-card .status-badge {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+}
+
+/* Welcome Message */
+.welcome-message {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 15px 30px;
+    border-radius: 30px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+    transition: all 0.5s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.welcome-message.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Loading Animation */
+.loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.2rem;
+    z-index: 1000;
+}
+
+.loading::after {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .role-card {
+        min-height: 250px;
+        padding: 30px 20px;
+    }
+
+    .role-icon {
+        font-size: 3rem;
+    }
+
+    .role-title {
+        font-size: 1.5rem;
+    }
+}

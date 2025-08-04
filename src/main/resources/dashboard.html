@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Role-Based Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="style/dashboard.css">
+</head>
+<body>
+<div class="loading" id="loading">Checking authentication...</div>
+
+<div class="welcome-message" id="welcomeMessage"></div>
+
+<div class="dashboard-container" id="dashboardContainer" style="display: none;">
+    <div class="role-card admin-card" id="adminCard">
+        <div class="status-badge">Active</div>
+        <div class="role-icon">
+            <i class="fas fa-crown"></i>
+        </div>
+        <div class="role-title">Administrator</div>
+        <div class="role-description">
+            Full system access with advanced management capabilities, user control, and system configuration options.
+        </div>
+    </div>
+
+    <div class="role-card user-card" id="userCard">
+        <div class="status-badge">Active</div>
+        <div class="role-icon">
+            <i class="fas fa-user"></i>
+        </div>
+        <div class="role-title">User</div>
+        <div class="role-description">
+            Standard access with essential features for daily operations, personal settings, and basic functionality.
+        </div>
+    </div>
+</div>
+
+<script src="js/dashboard.js"></script>
+</body>
+</html>
