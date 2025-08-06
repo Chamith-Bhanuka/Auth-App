@@ -19,6 +19,7 @@ body {
     gap: 30px;
     max-width: 1200px;
     width: 100%;
+    position: relative;
 }
 
 .role-card {
@@ -119,7 +120,7 @@ body {
     color: #f3f4f6;
 }
 
-/* User Card - Blue Glow Effect (Same as Admin) */
+/* User Card - Green Glow Effect */
 .user-card {
     background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.3));
     border-color: rgba(34, 197, 94, 0.3);
@@ -149,7 +150,8 @@ body {
 }
 
 .user-card.active .role-title {
-    color: #d1d5db;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
 }
 
 .user-card .role-description {
@@ -157,7 +159,7 @@ body {
 }
 
 .user-card.active .role-description {
-    color: #9ca3af;
+    color: #f3f4f6;
 }
 
 /* Animations */
@@ -169,17 +171,6 @@ body {
     50% {
         transform: scale(1.1);
         text-shadow: 0 0 30px rgba(59, 130, 246, 1);
-    }
-}
-
-@keyframes userPulse {
-    0%, 100% {
-        transform: scale(1);
-        text-shadow: 0 0 20px rgba(34, 197, 94, 0.8);
-    }
-    50% {
-        transform: scale(1.1);
-        text-shadow: 0 0 30px rgba(34, 197, 94, 1);
     }
 }
 
@@ -278,6 +269,272 @@ body {
     }
 }
 
+/* Logout Button Styles */
+.logout-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.3));
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(239, 68, 68, 0.3);
+    border-radius: 50px;
+    padding: 12px 24px;
+    color: #f87171;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-20px) scale(0.8);
+    z-index: 1000;
+}
+
+.logout-button.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.logout-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.logout-button:hover {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.4), rgba(220, 38, 38, 0.5));
+    border-color: #ef4444;
+    color: #ffffff;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow:
+            0 0 30px rgba(239, 68, 68, 0.5),
+            0 0 60px rgba(239, 68, 68, 0.3),
+            0 10px 30px rgba(239, 68, 68, 0.2);
+}
+
+.logout-button:hover::before {
+    left: 100%;
+}
+
+.logout-button:active {
+    transform: translateY(0) scale(0.95);
+    box-shadow:
+            0 0 20px rgba(239, 68, 68, 0.6),
+            0 0 40px rgba(239, 68, 68, 0.4);
+}
+
+.logout-button .logout-icon {
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.logout-button:hover .logout-icon {
+    transform: rotate(180deg);
+    text-shadow: 0 0 10px rgba(239, 68, 68, 0.8);
+}
+
+.logout-button .logout-text {
+    transition: all 0.3s ease;
+}
+
+.logout-button:hover .logout-text {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+/* Logout animation */
+@keyframes logoutPulse {
+    0%, 100% {
+        box-shadow:
+                0 0 20px rgba(239, 68, 68, 0.3),
+                0 0 40px rgba(239, 68, 68, 0.2);
+    }
+    50% {
+        box-shadow:
+                0 0 30px rgba(239, 68, 68, 0.5),
+                0 0 60px rgba(239, 68, 68, 0.3);
+    }
+}
+
+.logout-button.pulsing {
+    animation: logoutPulse 1.5s ease-in-out infinite;
+}
+
+/* Animated Alert Modal */
+.alert-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.alert-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.alert-modal {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 40px 30px;
+    text-align: center;
+    min-width: 350px;
+    max-width: 500px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    transform: scale(0.7) translateY(50px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.alert-overlay.show .alert-modal {
+    transform: scale(1) translateY(0);
+}
+
+.alert-modal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    50% { left: 100%; }
+    100% { left: 100%; }
+}
+
+.alert-icon {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    animation: iconPulse 2s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.alert-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+.alert-message {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    color: #e5e7eb;
+    line-height: 1.5;
+}
+
+.alert-close {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    padding: 12px 30px;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.alert-close:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2));
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Admin Alert Styles */
+.alert-modal.admin {
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.3);
+}
+
+.alert-modal.admin .alert-icon {
+    color: #60a5fa;
+    text-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+}
+
+.alert-modal.admin .alert-title {
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+.alert-modal.admin .alert-close {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(37, 99, 235, 0.2));
+    border-color: rgba(59, 130, 246, 0.4);
+}
+
+.alert-modal.admin .alert-close:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.5), rgba(37, 99, 235, 0.4));
+    border-color: #3b82f6;
+    box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4);
+}
+
+/* User Alert Styles */
+.alert-modal.user {
+    border-color: rgba(34, 197, 94, 0.4);
+    box-shadow: 0 0 40px rgba(34, 197, 94, 0.3);
+}
+
+.alert-modal.user .alert-icon {
+    color: #34d399;
+    text-shadow: 0 0 20px rgba(34, 197, 94, 0.8);
+}
+
+.alert-modal.user .alert-title {
+    text-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+}
+
+.alert-modal.user .alert-close {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(22, 163, 74, 0.2));
+    border-color: rgba(34, 197, 94, 0.4);
+}
+
+.alert-modal.user .alert-close:hover {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.5), rgba(22, 163, 74, 0.4));
+    border-color: #22c55e;
+    box-shadow: 0 5px 20px rgba(34, 197, 94, 0.4);
+}
+
+/* Loading spinner for API calls */
+.alert-loading {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid #ffffff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .dashboard-container {
@@ -296,5 +553,36 @@ body {
 
     .role-title {
         font-size: 1.5rem;
+    }
+
+    .logout-button {
+        top: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    .welcome-message {
+        top: 20px;
+        font-size: 1rem;
+        padding: 12px 24px;
+    }
+
+    .alert-modal {
+        min-width: 300px;
+        margin: 20px;
+        padding: 30px 25px;
+    }
+
+    .alert-icon {
+        font-size: 3rem;
+    }
+
+    .alert-title {
+        font-size: 1.5rem;
+    }
+
+    .alert-message {
+        font-size: 1.1rem;
     }
 }
